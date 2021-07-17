@@ -12,8 +12,10 @@ import ca.bcit.tadey.revision.state.State;
 import ca.bcit.tadey.revision.state.StateHelper;
 
 /**
+ * The RevisionDataGen class manages all the aspects of the csv and file that need to be generated randomly. This includes
+ * states, beliefstates, and sentences.
+ * 
  * @author sam_t
- *
  */
 public class RevisionDataGen {
 
@@ -23,24 +25,34 @@ public class RevisionDataGen {
 	Random random;
 	
 	/**
-	 * 
+	 * RevisionDataGen constructor
 	 */
 	public RevisionDataGen(int num_vars) {
 		this.num_vars = num_vars;
 		random = new Random();
 	}
 	
-	
+	/**
+	 * Getter for number of variables
+	 * @return number of variables as an int
+	 */
 	public int getNumVars() {
 		return num_vars;
 	}
 
-
+	/**
+	 * Setter for number of variables
+	 * @param num_vars int
+	 */
 	public void setNumVars(int num_vars) {
 		this.num_vars = num_vars;
 	}
 	
-	
+	/**
+	 * Generates a random state with number of variables passed in teh constructor
+	 * 
+	 * @return State
+	 */
 	private State genState() {
 		StringBuilder build = new StringBuilder();
 		
@@ -50,7 +62,12 @@ public class RevisionDataGen {
 		return new State(build.toString());
 	}
 	
-	
+	/**
+	 * Generates a random sentence as a belief state object. This sentence is comprised of random states, and can be of length
+	 * 1 up to the max number of possible states given the number of variables
+	 * 
+	 * @return sentence as a BeliefState
+	 */
 	public BeliefState genSentence() {
 		int num_possible_states, num_states;
 		Set<State> sentence;
@@ -74,7 +91,12 @@ public class RevisionDataGen {
 		return new BeliefState(sentence);
 	}
 	
-	
+	/**
+	 * Generates a full ordered set of States, this is used to create unique belief states as a ranking
+	 * of all possible states
+	 * 
+	 * @return a full ordered set as a belief state
+	 */
 	private BeliefState genOrderedFullSets() {
 		int num_possible_states = (int) Math.pow(2, num_vars);
 		//states in order
@@ -93,7 +115,12 @@ public class RevisionDataGen {
 		return reorder;
 	}
 	
-	//max beliefs?
+	/**
+	 * Generates a nummber of ranked belief states based on the parameter
+	 * 
+	 * @param num_beliefs number of completed ranked belief states to create
+	 * @return set of unique belief states
+	 */
 	public Set<BeliefState> genBeliefStates(int num_beliefs) {
 		Set<BeliefState> beliefs = new HashSet<BeliefState>();
 		
@@ -102,23 +129,6 @@ public class RevisionDataGen {
 		
 		return beliefs;
 	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		RevisionDataGen gen = new RevisionDataGen(3);
-		
-		System.out.println(gen.genSentence().toString());
-		
-		System.out.println("Genning Belief States");
-		Set<BeliefState> ss = gen.genBeliefStates(6);
-		
-		for (BeliefState sss : ss)
-			System.out.println(sss.toString());
-	}
-
-
 
 
 }

@@ -5,21 +5,26 @@ package ca.bcit.tadey.revision.revise;
 
 import ca.bcit.tadey.revision.state.BeliefState;
 import ca.bcit.tadey.revision.state.State;
-import ca.bcit.tadey.revision.state.StateHelper;
 
 /**
+ * A RankingOperator is a simple ReivisonOperator that shifts states up one position if that state appears in the sentence to 
+ * revise by
+ * 
  * @author sam_t
- *
  */
 public class RankingOperator extends RevisionOperator {
 
 	/**
-	 * 
+	 * Default RankingOperator constructor
 	 */
 	public RankingOperator() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * revise implementation for the RankingOperator
+	 * Shift a state up in the goal state if it appears in the sentence
+	 */
 	@Override
 	public BeliefState revise(BeliefState beliefs, BeliefState sentence) {
 		State s,t;
@@ -47,36 +52,5 @@ public class RankingOperator extends RevisionOperator {
 	}
 	
 
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		
-		BeliefState bs = new BeliefState(StateHelper.generateStates(3));
-		System.out.println(bs.toString());
-		
-		BeliefState sent = new BeliefState();
-		sent.addBelief(new State("010"));
-		sent.addBelief(new State("111"));
-		
-		RevisionOperator op = new RankingOperator();
-		BeliefState goal = op.revise(bs, sent);
-		
-		System.out.println(goal.toString());
-		
-//		op.shiftState(bs, 3);
-//		System.out.println(bs.toString());
-//		
-//		op.shiftState(bs, 0);
-//		System.out.println(bs.toString());
-//		
-//		op.shiftState(bs, 6);
-//		System.out.println(bs.toString());
-//		
-//		op.shiftState(bs, 7);
-//		System.out.println(bs.toString());
-		
-	}
 
 }

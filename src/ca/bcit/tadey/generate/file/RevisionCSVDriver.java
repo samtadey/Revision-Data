@@ -13,17 +13,27 @@ import ca.bcit.tadey.revisiondata.RevisionDataGen;
 import ca.bcit.tadey.revisiondata.RevisionDataGenFile;
 
 /**
+ * The RevisionCSVDriver is the class driving the file creation and write to the csv file
+ * 
  * @author sam_t
- *
  */
 public class RevisionCSVDriver {
 
 	Scanner scan;
 
+	/**
+	 * RevisionCSVDriver constructor.
+	 * Initializes a scanner to take keyboard input
+	 */
 	public RevisionCSVDriver() {
 		scan = new Scanner(System.in);
 	}
 
+	/**
+	 * Reads the number of variables that States in the data should be modelled after.
+	 * 
+	 * @return int as number of variables
+	 */
 	public int readNumVars() {
 		String input;
 		int num_vars;
@@ -42,6 +52,11 @@ public class RevisionCSVDriver {
 		return num_vars;
 	}
 	
+	/**
+	 * Reads the number of data lines to create for EACH unique beliefstate the user decides to create
+	 * 
+	 * @return int as the number of lines for each beliefstate
+	 */
 	public int readNumLines() {
 		String input;
 		int num_lines;
@@ -64,6 +79,11 @@ public class RevisionCSVDriver {
 		return num_lines;
 	}
 	
+	/**
+	 * Reads the number of unique beliefstates to create for the data file
+	 * 
+	 * @return int as the number of beliefstates
+	 */
 	public int readNumBeliefStates() {
 		String input;
 		int bel_states;
@@ -82,6 +102,11 @@ public class RevisionCSVDriver {
 		return bel_states;
 	}
 	
+	/**
+	 * Reads the revision operator to use to generate the goal states for the data file
+	 * 
+	 * @return int as the revision operator choice
+	 */
 	public int readRevisionOperator() {
 		String input;
 		int rev_op, rev_max = 1;
@@ -104,12 +129,18 @@ public class RevisionCSVDriver {
 		return rev_op;
 	}
 	
-	
+	/**
+	 * Closes the scanner.
+	 * Uses at the end of the main method
+	 */
 	public void closeScan() {
 		this.scan.close();
 	}
 	
+	
 	/**
+	 * Main method for csv creation
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {

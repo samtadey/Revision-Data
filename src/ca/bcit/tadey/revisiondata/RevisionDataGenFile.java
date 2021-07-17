@@ -10,8 +10,9 @@ import java.io.IOException;
 import ca.bcit.tadey.revision.state.BeliefState;
 
 /**
+ * The RevisionDataGenFile class is responsible for creating and writing the data for the generated csv file
+ * 
  * @author sam_t
- *
  */
 public class RevisionDataGenFile {
 
@@ -19,7 +20,9 @@ public class RevisionDataGenFile {
 	String filepath;
 	
 	/**
+	 * RevisionDataGenFile constructor
 	 * 
+	 * @param filename as a string
 	 */
 	public RevisionDataGenFile(String filename) {
 		
@@ -38,6 +41,12 @@ public class RevisionDataGenFile {
 		    }
 	}
 
+	/**
+	 * Writes the header for all columns to the csv file
+	 * This method overwrites all previous contents of that file, if it exists
+	 * 
+	 * @param size number of columns for each header type
+	 */
 	public void writeHeader(int size) {
 		try {
 			  //overwrite mode
@@ -51,6 +60,13 @@ public class RevisionDataGenFile {
 		    }
 	}
 	
+	/**
+	 * Writes a line of data to the csv file
+	 * 
+	 * @param bel beliefstate to write
+	 * @param sent sentence to write
+	 * @param goal goalstate to write
+	 */
 	public void writeLine(BeliefState bel, BeliefState sent, BeliefState goal) {
 		try {
 			  //append mode
@@ -64,6 +80,13 @@ public class RevisionDataGenFile {
 		    }
 	}
 	
+	/**
+	 * Builds the header string to write to the csv file
+	 * For each header column type, create 'size' number of columns
+	 * 
+	 * @param size
+	 * @return
+	 */
 	private String buildHeader(int size) {
 		String[] c = {"b", "s", "g"};
 		int i,j,col;
@@ -83,6 +106,14 @@ public class RevisionDataGenFile {
 		return build.toString();
 	}
 	
+	/**
+	 * Builds the string to write as the line of data to the csv file
+	 *
+	 * @param bel beliefstate to write
+	 * @param sent sentence to write
+	 * @param goal goalstate to write
+	 * @return String to write to the csv file
+	 */
 	private String buildLine(BeliefState bel, BeliefState sent, BeliefState goal) {
 		StringBuilder line = new StringBuilder();
 		int i;
