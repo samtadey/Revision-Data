@@ -102,7 +102,7 @@ public class RevisionDataGenFile {
 		//if sentence length != belief length add blanks up to belief length
 		for (i = sent.getBeliefs().size(); i < bel.getBeliefs().size(); i++)
 		{
-			line.append(" ");
+			line.append("2"); //? " " cant be an emtpy value
 			line.append(",");
 		}
 		//goals
@@ -115,4 +115,5 @@ public class RevisionDataGenFile {
 		
 		return line.toString();
 	}
+
 }

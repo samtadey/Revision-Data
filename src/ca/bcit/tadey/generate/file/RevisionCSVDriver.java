@@ -49,6 +49,7 @@ public class RevisionCSVDriver {
 		while (true)
 		{
 		    System.out.println("How many data entries for the file? (10 - 10000 lines)");
+		    System.out.println("This is number of lines PER initial belief state");
 		    input = scan.nextLine();
 		    try {
 		    	num_lines = Integer.parseInt(input);
@@ -112,7 +113,7 @@ public class RevisionCSVDriver {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int num_vars, num_lines, bel_states, rev_op;
+		int num_vars, num_lines, bel_states, rev_op, i;
 		Set<BeliefState> all_beliefs;
 		BeliefState sentence, goal;
 		RevisionOperator op;
@@ -143,22 +144,23 @@ public class RevisionCSVDriver {
 		//generate data structures
 		RevisionDataGen gendata = new RevisionDataGen(num_vars);
 		genfile = new RevisionDataGenFile(filename);
-		genfile.writeHeader((int) Math.pow(2, num_vars));
+		//genfile.writeHeader((int) Math.pow(2, num_vars));
 		
 		all_beliefs = gendata.genBeliefStates(bel_states);
 		for (BeliefState b : all_beliefs)
-		{
-			System.out.println("Beliefs");
-			System.out.println(b.toString());
-			System.out.println("Sentence");
-			sentence = gendata.genSentence();
-			System.out.println(sentence.toString());
-			goal = op.revise(b, sentence);
-			System.out.println("Goal");
-			System.out.println(goal.toString());
-		
-			
-			genfile.writeLine(b, sentence, goal);
+		{	
+			for (i = 0; i < num_lines; i++)
+			{
+				//System.out.println("Beliefs");
+				//System.out.println(b.toString());
+				//System.out.println("Sentence");
+				sentence = gendata.genSentence();
+				//System.out.println(sentence.toString());
+				goal = op.revise(b, sentence);
+				//System.out.println("Goal");
+				//System.out.println(goal.toString());
+				genfile.writeLine(b, sentence, goal);
+			}
 		}
 		
 		//close scanner
